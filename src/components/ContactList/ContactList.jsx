@@ -4,8 +4,12 @@ import ListItem from './ListItem/ListItem';
 export default function ContactList({ contacts, onDeleteClick }) {
   return (
     <ul>
-      {contacts.map(({ id, name, number }) => (
-        <ListItem key={id} name={name} number={number} />
+      {contacts.map(contact => (
+        <ListItem
+          key={contact.id}
+          contact={contact}
+          onDeleteClick={onDeleteClick}
+        />
       ))}
     </ul>
   );
@@ -19,5 +23,5 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ).isRequired,
-  // onDeleteClick: PropTypes.func.isRequired
+  onDeleteClick: PropTypes.func.isRequired,
 };

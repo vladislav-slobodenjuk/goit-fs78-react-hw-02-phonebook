@@ -1,15 +1,13 @@
 import PropTypes from 'prop-types';
 
-export default function ListItem({ name, number, onDeleteClick }) {
+export default function ListItem({ contact, onDeleteClick }) {
+  const { id, name, number } = contact;
   return (
     <li>
       <p>
         {name}: {number}
       </p>
-      <button
-        type="button"
-        // onClick={onDeleteClick}
-      >
+      <button type="button" onClick={() => onDeleteClick(id)}>
         Delete
       </button>
     </li>
@@ -17,7 +15,10 @@ export default function ListItem({ name, number, onDeleteClick }) {
 }
 
 ListItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  // onDeleteClick: PropTypes.func.isRequired,
+  contact: PropTypes.exact({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }).isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
 };

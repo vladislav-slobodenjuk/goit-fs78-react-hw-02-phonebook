@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
@@ -23,8 +23,8 @@ export class App extends Component {
     e.preventDefault();
     const { contacts } = this.state;
 
-    const name = e.target.name.value;
-    const number = e.target.number.value;
+    const name = e.target.name.value.trim();
+    const number = e.target.number.value.trim();
 
     const isExist = contacts.find(contact => contact.name === name);
     if (isExist) return alert(`${name} is already in contacts.`);
@@ -41,7 +41,11 @@ export class App extends Component {
     );
   };
 
-  handleDelete = e => {};
+  handleDelete = id => {
+    this.setState({
+      contacts: this.state.contacts.filter(contact => contact.id !== id),
+    });
+  };
 
   render() {
     const { filter } = this.state;
@@ -54,13 +58,11 @@ export class App extends Component {
           // onInputChange={this.handleInputChange}
           onHandleSubmit={this.handleSubmit}
         />
-
         <h2>Contacts</h2>
         <Filter filterValue={filter} onFilterChange={this.handleInputChange} />
-
         <ContactList
           contacts={filteredContacts}
-          // onDeleteClick={id => this.setState({ contacts: contacts.filter(contact => contact.id!== id) })}
+          onDeleteClick={this.handleDelete}
         />
       </div>
     );
