@@ -5,6 +5,7 @@ export class App extends Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
   };
 
   handleInputChange = ({ target }) => {
@@ -13,13 +14,18 @@ export class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { name, contacts } = this.state;
-    this.setState({ contacts: [...contacts, { name, id: nanoid() }] });
-    this.setState({ name: '' });
+    const { name, number, contacts } = this.state;
+
+    this.setState({
+      contacts: [...contacts, { name, number, id: nanoid() }],
+      name: '',
+      number: '',
+    });
+    // this.setState({ name: '' });
   };
 
   render() {
-    const { contacts } = this.state;
+    const { contacts, name, number } = this.state;
 
     return (
       <div>
@@ -35,9 +41,23 @@ export class App extends Component {
             <input
               type="text"
               name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
+              value={name}
+              onChange={this.handleInputChange}
+            />
+          </label>
+
+          <label>
+            Number:
+            <input
+              type="tel"
+              name="number"
+              // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
+              value={number}
               onChange={this.handleInputChange}
             />
           </label>
@@ -49,8 +69,10 @@ export class App extends Component {
         {/* <ComponentList .../> */}
 
         <ul>
-          {contacts.map(({ id, name }) => (
-            <li key={id}>{name}</li>
+          {contacts.map(({ id, name, number }) => (
+            <li key={id}>
+              {name}: {number}
+            </li>
           ))}
         </ul>
       </div>
