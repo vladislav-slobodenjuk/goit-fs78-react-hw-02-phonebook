@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
-import ContactForm from './ContactForm/ContactForm';
-import ContactList from './ContactList/ContactList';
-import Filter from './Filter/Filter';
+import ContactForm from '../ContactForm/ContactForm';
+import ContactList from '../ContactList/ContactList';
+import Filter from '../Filter/Filter';
+import { Container } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -37,7 +38,7 @@ export class App extends Component {
   filterContacts = () => {
     const { filter, contacts } = this.state;
     return contacts.filter(({ name }) =>
-      name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+      name.toLowerCase().includes(filter.toLowerCase())
     );
   };
 
@@ -52,7 +53,7 @@ export class App extends Component {
     const filteredContacts = this.filterContacts();
 
     return (
-      <div>
+      <Container>
         <h1>Phonebook</h1>
         <ContactForm
           // onInputChange={this.handleInputChange}
@@ -64,7 +65,7 @@ export class App extends Component {
           contacts={filteredContacts}
           onDeleteClick={this.handleDelete}
         />
-      </div>
+      </Container>
     );
   }
 }

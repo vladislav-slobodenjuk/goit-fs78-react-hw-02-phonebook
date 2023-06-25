@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 export default function ListItem({ contact, onDeleteClick }) {
   const { id, name, number } = contact;
   return (
-    <li>
-      <p>
-        {name}: {number}
-      </p>
-      <button type="button" onClick={() => onDeleteClick(id)}>
-        Delete
-      </button>
-    </li>
+    <>
+      <li>
+        <p>
+          {name}: <span>{number}</span>
+        </p>
+        <button type="button" onClick={() => onDeleteClick(id)}>
+          Delete
+        </button>
+      </li>
+    </>
   );
 }
 

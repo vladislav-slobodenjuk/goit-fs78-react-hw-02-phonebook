@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import ListItem from './ListItem/ListItem';
+import { StyledList } from './ContactList.styled';
 
 export default function ContactList({ contacts, onDeleteClick }) {
   return (
-    <ul>
+    <StyledList>
       {contacts.map(contact => (
         <ListItem
           key={contact.id}
@@ -11,7 +12,8 @@ export default function ContactList({ contacts, onDeleteClick }) {
           onDeleteClick={onDeleteClick}
         />
       ))}
-    </ul>
+      {contacts.length === 0 && <p>Nothing found</p>}
+    </StyledList>
   );
 }
 
