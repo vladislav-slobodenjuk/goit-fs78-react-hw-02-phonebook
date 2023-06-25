@@ -12,7 +12,11 @@ export default function ContactList({ contacts, onDeleteClick }) {
           onDeleteClick={onDeleteClick}
         />
       ))}
-      {contacts.length === 0 && <p>Nothing found</p>}
+      {contacts.length === 0 && (
+        <li>
+          <p>Nothing found</p>
+        </li>
+      )}
     </StyledList>
   );
 }
