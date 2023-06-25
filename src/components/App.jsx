@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm/ContactForm';
+import ContactList from './ContactList/ContactList';
 
 export class App extends Component {
   state = {
@@ -39,6 +40,8 @@ export class App extends Component {
     );
   };
 
+  handleDelete = e => {};
+
   render() {
     const { filter } = this.state;
     const filteredContacts = this.filterContacts();
@@ -58,6 +61,7 @@ export class App extends Component {
           onDeleteClick={id => this.setState({ contacts: contacts.filter(contact => contact.id!== id) })}
         />
        */}
+        {/* <Filter .../> */}
         <input
           type="text"
           name="filter"
@@ -65,16 +69,10 @@ export class App extends Component {
           onChange={this.handleInputChange}
         />
 
-        {/* <Filter .../> */}
-        {/* <ComponentList .../> */}
-
-        <ul>
-          {filteredContacts.map(({ id, name, number }) => (
-            <li key={id}>
-              {name}: {number}
-            </li>
-          ))}
-        </ul>
+        <ContactList
+          contacts={filteredContacts}
+          // onDeleteClick={id => this.setState({ contacts: contacts.filter(contact => contact.id!== id) })}
+        />
       </div>
     );
   }
