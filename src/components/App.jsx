@@ -3,9 +3,15 @@ import { nanoid } from 'nanoid';
 
 export class App extends Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
     name: '',
     number: '',
+    filter: '',
   };
 
   handleInputChange = ({ target }) => {
@@ -24,8 +30,16 @@ export class App extends Component {
     // this.setState({ name: '' });
   };
 
+  filterContacts = () => {
+    const { filter, contacts } = this.state;
+    return contacts.filter(({ name }) =>
+      name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+    );
+  };
+
   render() {
-    const { contacts, name, number } = this.state;
+    const { contacts, name, number, filter } = this.state;
+    const filteredContacts = this.filterContacts();
 
     return (
       <div>
@@ -65,11 +79,24 @@ export class App extends Component {
         </form>
 
         <h2>Contacts</h2>
+        {/* <Filter value={this.state.filter} onChange={this.handleInputChange} />
+        <ContactList
+          contacts={contacts}
+          onDeleteClick={id => this.setState({ contacts: contacts.filter(contact => contact.id!== id) })}
+        />
+       */}
+        <input
+          type="text"
+          name="filter"
+          value={filter}
+          onChange={this.handleInputChange}
+        />
+
         {/* <Filter .../> */}
         {/* <ComponentList .../> */}
 
         <ul>
-          {contacts.map(({ id, name, number }) => (
+          {filteredContacts.map(({ id, name, number }) => (
             <li key={id}>
               {name}: {number}
             </li>
