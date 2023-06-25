@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
+import Filter from './Filter/Filter';
 
 export class App extends Component {
   state = {
@@ -55,19 +56,7 @@ export class App extends Component {
         />
 
         <h2>Contacts</h2>
-        {/* <Filter value={this.state.filter} onChange={this.handleInputChange} />
-        <ContactList
-          contacts={contacts}
-          onDeleteClick={id => this.setState({ contacts: contacts.filter(contact => contact.id!== id) })}
-        />
-       */}
-        {/* <Filter .../> */}
-        <input
-          type="text"
-          name="filter"
-          value={filter}
-          onChange={this.handleInputChange}
-        />
+        <Filter filterValue={filter} onFilterChange={this.handleInputChange} />
 
         <ContactList
           contacts={filteredContacts}
